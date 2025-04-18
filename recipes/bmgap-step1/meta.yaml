@@ -1,0 +1,49 @@
+{% set name = "bmgap_step1" %}
+{% set version = "0.5.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  - url: https://github.com/lskatz/BMGAP/archive/refs/tags/v0.5.1.tar.gz
+  - sha256: 52184727622ee1150a60ad7c59bff71bac251c8c78dd5a430075fc5753d71a15
+
+build:
+  noarch: generic
+  number: 0
+  skip: true # [osx]
+  run_exports:
+     - {{ pin_subpackage("bmgap_step1", max_pin="x.x") }}
+
+requirements:
+  run:
+    - bbmap
+    - bowtie2
+    - spades
+    - pandas
+    - cutadapt
+    - python >=3.7
+    - biopython==1.78
+    - matplotlib
+    - bioconductor-bsgenome.hsapiens.ucsc.hg38
+
+test:
+  commands:
+    - alignment.sh
+
+about:
+  home: https://github.com/CDCgov/BMGAP
+  license: Apache-2.0 license 
+  license_family: Apache
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - lskatz
+    - c-wiest
+    - shalabhsharma7
+    - VCabanFig
+  identifiers:
+    - doi:10.3389/fgene.2020.601870
+
